@@ -1,4 +1,5 @@
-﻿import tkinter as tk
+﻿# tic_tac_toe.py
+import tkinter as tk
 from tkinter import messagebox
 import random
 
@@ -45,29 +46,20 @@ class TicTacToe:
         if not self.game_active:
             return
         
-        # ЕСТЬ: проверка победы
-        if self.check_win():
-            self.handle_win()
+        # ЕСТЬ: проверка ничьи
+        if self.check_draw():
+            self.handle_draw()
             return
         
-        # НЕТ: выполнение хода, проверка ничьи, смена игрока, рестарт игры
+        # НЕТ: выполнение хода, проверка победы, смена игрока, рестарт игры
     
-    def check_win(self):
-        """Проверяет выигрышные комбинации"""
-        wins = [
-            [0,1,2], [3,4,5], [6,7,8],  
-            [0,3,6], [1,4,7], [2,5,8],  
-            [0,4,8], [2,4,6]            
-        ]
-        
-        for a,b,c in wins:
-            if self.board[a] == self.board[b] == self.board[c] == self.current_player:
-                return True
-        return False
+    def check_draw(self):
+        """Проверяет ничью"""
+        return all(cell != "" for cell in self.board)
     
-    def handle_win(self):
-        """Обрабатывает победу"""
-        messagebox.showinfo("Победа!", f"Игрок {self.current_player} победил!")
+    def handle_draw(self):
+        """Обрабатывает ничью"""
+        messagebox.showinfo("Ничья!", "Игра закончилась вничью!")
         # НЕТ: рестарт игры
     
     def run(self):
