@@ -1,4 +1,5 @@
-﻿import tkinter as tk
+﻿# tic_tac_toe.py
+import tkinter as tk
 from tkinter import messagebox
 import random
 
@@ -42,9 +43,21 @@ class TicTacToe:
             self.buttons.append(button)
     
     def make_move(self, position):
-        # ЕСТЬ: базовая структура метода
-        # НЕТ: вся игровая логика
-        pass
+        if not self.game_active:
+            return
+        
+        # ЕСТЬ: проверка корректности ввода
+        if not self.validate_move(position):
+            return
+        
+        # НЕТ: выполнение хода, проверка победы, проверка ничьи, смена игрока, рестарт игры
+    
+    def validate_move(self, position):
+        """Проверяет корректность хода - клетка должна быть свободна"""
+        if self.board[position] != "":
+            messagebox.showwarning("Неверный ход", "Эта клетка уже занята!")
+            return False
+        return True
     
     def run(self):
         self.window.mainloop()
