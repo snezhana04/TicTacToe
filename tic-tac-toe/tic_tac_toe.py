@@ -46,18 +46,23 @@ class TicTacToe:
         if not self.game_active:
             return
         
-        # ЕСТЬ: проверка корректности ввода
-        if not self.validate_move(position):
-            return
+        # ЕСТЬ: правила игры - выполнение хода и смена игрока
+        self.execute_move(position)
+        self.switch_player()
         
-        # НЕТ: выполнение хода, проверка победы, проверка ничьи, смена игрока, рестарт игры
+        # НЕТ: проверка победы, проверка ничьи, рестарт игры
     
-    def validate_move(self, position):
-        """Проверяет корректность хода - клетка должна быть свободна"""
-        if self.board[position] != "":
-            messagebox.showwarning("Неверный ход", "Эта клетка уже занята!")
-            return False
-        return True
+    def execute_move(self, position):
+        """Выполняет ход текущего игрока"""
+        self.board[position] = self.current_player
+        self.buttons[position].config(
+            text=self.current_player,
+            state="disabled"
+        )
+    
+    def switch_player(self):
+        """Меняет текущего игрока"""
+        self.current_player = "O" if self.current_player == "X" else "X"
     
     def run(self):
         self.window.mainloop()
